@@ -32,4 +32,8 @@ yarn-error.log*
 # Build/Generate output
 dist/
 build/
-coverage/ 
+coverage/
+
+# Screenshots
+# /screenshots/*
+!screenshots/.gitkeep 

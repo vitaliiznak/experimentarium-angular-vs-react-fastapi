@@ -1,8 +1,8 @@
 import { Page } from '@playwright/test';
 
 export async function loginUser(page: Page, email: string, password: string) {
-  await page.getByTestId('login-email').fill(email);
-  await page.getByTestId('login-password').fill(password);
+  await page.getByTestId('login-email').locator('input').fill(email);
+  await page.getByTestId('login-password').locator('input').fill(password);
   await page.getByTestId('login-submit').click();
 }
 

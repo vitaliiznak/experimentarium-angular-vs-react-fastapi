@@ -2,6 +2,26 @@
 
 A hands-on learning project comparing Angular(never worked with it before) and React implementations while building a secure authentication system with FastAPI backend. This project serves as a practical exploration of modern web development frameworks and practices.
 
+## 📸 Application Screenshots
+
+<table>
+<tr>
+<td width="50%"><b>Angular Frontend</b></td>
+<td width="50%"><b>React Frontend</b></td>
+</tr>
+<tr>
+<td><img src="packages/testing/screenshots/angular/login.png" alt="Angular Login"/></td>
+<td><img src="packages/testing/screenshots/react/login.png" alt="React Login"/></td>
+</tr>
+<tr>
+<td colspan="2"><b>Angular Additional Views</b></td>
+</tr>
+<tr>
+<td><img src="packages/testing/screenshots/angular/signup.png" alt="Angular Signup"/></td>
+<td><img src="packages/testing/screenshots/angular/dashboard.png" alt="Angular Dashboard"/></td>
+</tr>
+</table>
+
 ## 🎯 Project Purpose
 
 1. **Framework Comparison**
@@ -11,8 +31,6 @@ A hands-on learning project comparing Angular(never worked with it before) and R
 
 2. **Explore FastAPI**
    - Explore FastAPI
-
-
 
 ## 🛠 Tech Stack
 
@@ -27,11 +45,6 @@ A hands-on learning project comparing Angular(never worked with it before) and R
 - Angular 19.1
 - Vite (React)
 - Angular CLI
-
-### Quick Start with Docker
-
-
-
 
 ### Quick Start with Docker
 
@@ -54,8 +67,6 @@ This will start:
 - Angular frontend (port 4200), http://localhost:4200 to see Angular app
 - React frontend (port 5173), http://localhost:5173 to see React app
 
-
-
 ### E2E Tests
 
 Prerequisites:
@@ -67,7 +78,6 @@ npm run test:e2e # Run all E2E tests
 npm run test:e2e:react # Run React E2E tests only, no tests for React yet
 npm run test:e2e:angular # Run Angular E2E tests only
 ```
-
 
 Start specific service
 
@@ -89,7 +99,6 @@ docker compose logs -f web-react # React frontend logs
 docker compose logs -f web-angular # Angular frontend logs
 docker compose logs -f db # Database logs
 ```
-
 
 ## 🔑 Testing Password Reset Using UI
 

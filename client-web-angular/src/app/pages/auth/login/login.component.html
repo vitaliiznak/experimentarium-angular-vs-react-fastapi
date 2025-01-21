@@ -7,9 +7,9 @@
 
         <app-form-field data-testid="login-email" label="Email" type="email" fieldId="email" controlName="email" placeholder="Enter your email" [form]="loginForm" [showError]="shouldShowError('email')" [errorMessage]="getEmailErrorMessage()"></app-form-field>
 
-        <app-form-field label="Password" type="password" fieldId="password" controlName="password" placeholder="Enter your password" [form]="loginForm" [showError]="shouldShowError('password')" errorMessage="Password is required"></app-form-field>
+        <app-form-field data-testid="login-password" label="Password" type="password" fieldId="password" controlName="password" placeholder="Enter your password" [form]="loginForm" [showError]="shouldShowError('password')" errorMessage="Password is required"></app-form-field>
 
-        <button type="submit" [class.loading]="isLoading">
+        <button type="submit" data-testid="login-submit" [class.loading]="isLoading">
       <span *ngIf="!isLoading">Login</span>
       <span *ngIf="isLoading">
         <i class="fas fa-spinner fa-spin"></i> Logging in...

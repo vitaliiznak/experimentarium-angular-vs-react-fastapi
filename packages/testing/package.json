@@ -11,6 +11,8 @@
     "test:e2e:debug": "playwright test --config e2e/config/playwright.config.ts --debug",
     "test:e2e:angular": "playwright test --config e2e/config/playwright.config.ts --project=angular",
     "test:e2e:react": "playwright test --config e2e/config/playwright.config.ts --project=react",
-    "test:e2e:all": "playwright test --config e2e/config/playwright.config.ts --project=angular --project=react"
+    "test:e2e:all": "playwright test --config e2e/config/playwright.config.ts --project=angular --project=react",
+    "screenshots": "playwright test --config e2e/config/playwright.screenshots.config.ts",
+    "screenshots:debug": "playwright test --config e2e/config/playwright.screenshots.config.ts --debug"
   }
 } 
