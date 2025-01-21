@@ -1,0 +1,47 @@
+<div class="home-container">
+    <nav class="top-nav">
+        <div class="user-info">
+            <span class="welcome-text">Welcome back,</span>
+            <span class="user-name">{{ user?.name }}</span>
+        </div>
+        <button class="logout-btn" (click)="logout()">
+      <i class="fas fa-sign-out-alt"></i>
+      Logout
+    </button>
+    </nav>
+
+    <main class="main-content">
+        <div class="dashboard-card">
+            <h2>Green Energy Dashboard</h2>
+            <div class="time-display">
+                {{ currentTime | date:'medium' }}
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Solar Production</h3>
+                    <div class="stat-value">2.4 kWh</div>
+                    <div class="stat-trend positive">↑ 12%</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Wind Generation</h3>
+                    <div class="stat-value">1.8 kWh</div>
+                    <div class="stat-trend positive">↑ 8%</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Energy Savings</h3>
+                    <div class="stat-value">$127.50</div>
+                    <div class="stat-trend positive">↑ 15%</div>
+                </div>
+
+                <div class="stat-card">
+                    <h3>Carbon Offset</h3>
+                    <div class="stat-value">342 kg</div>
+                    <div class="stat-trend positive">↑ 5%</div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,26 @@
+<app-auth-form>
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div *ngIf="loginError" class="error-alert">
+            {{ loginError }}
+        </div>
+
+        <app-form-field label="Email" type="email" fieldId="email" controlName="email" placeholder="Enter your email" [form]="loginForm" [showError]="shouldShowError('email')" [errorMessage]="getEmailErrorMessage()"></app-form-field>
+
+        <app-form-field label="Password" type="password" fieldId="password" controlName="password" placeholder="Enter your password" [form]="loginForm" [showError]="shouldShowError('password')" errorMessage="Password is required"></app-form-field>
+
+        <button type="submit" [class.loading]="isLoading">
+      <span *ngIf="!isLoading">Login</span>
+      <span *ngIf="isLoading">
+        <i class="fas fa-spinner fa-spin"></i> Logging in...
+      </span>
+    </button>
+
+        <p class="forgot-password-link">
+            <a routerLink="/auth/forgot-password">Forgot Password?</a>
+        </p>
+        <p class="signup-link">
+            Don't have an account? <a routerLink="/auth/signup">Sign up</a>
+        </p>
+    </form>
+</app-auth-form>
