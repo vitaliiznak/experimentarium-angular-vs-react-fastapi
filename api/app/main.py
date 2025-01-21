@@ -13,11 +13,14 @@ app = FastAPI()
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-   allow_origins=[
+    allow_origins=[
         "http://localhost:4201",
-        "http://localhost:4200",  # Default Angular port
+        "http://localhost:4200",
         "http://127.0.0.1:4201",
         "http://127.0.0.1:4200",
+        "http://localhost:5173",
+        "http://api:8000",
+        "http://localhost:8000"
     ],
     allow_credentials=True,
     allow_methods=["*"],

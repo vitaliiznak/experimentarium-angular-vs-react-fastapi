@@ -31,17 +31,37 @@ services:
       db:
         condition: service_healthy
 
-  web:
-    build: ./client-web
+  web-angular:
+    build: ./client-web-angular
     ports:
       - "4200:4200"
       - "9229:9229"
     volumes:
-      - ./client-web:/app
+      - ./client-web-angular:/app
       - /app/node_modules
     environment:
       - NODE_OPTIONS=--inspect=0.0.0.0:9229
     command: ng serve --host 0.0.0.0 --poll 2000
+
+  web-react:
+    build:
+      context: .
+      dockerfile: client-web-react/Dockerfile
+    ports:
+      - "5173:5173"
+      - "9230:9230"
+    volumes:
+      - ./client-web-react:/app
+      - ./packages:/app/packages
+      - /app/node_modules
+      - /app/packages/testing/node_modules
+    environment:
+      - NODE_OPTIONS=--inspect=0.0.0.0:9230
+      - DOCKER=true
+      - VITE_API_URL=http://localhost:8000/api
+    command: npm run dev -- --host 0.0.0.0
+    depends_on:
+      - api
 
 volumes:
   postgres_data:

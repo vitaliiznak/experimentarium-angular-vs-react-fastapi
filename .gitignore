@@ -29,3 +29,6 @@ yarn-error.log*
 # Ignore gitignore documentation files
 *.gitignore.txt
 *.gitignore.md 
+
+**/node_modules
+**/dist
