@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
-  testDir: '../specs',
+  testDir: './e2e/specs',
   timeout: 30 * 1000,
   expect: {
     timeout: 5000
@@ -20,7 +20,11 @@ export default defineConfig({
       name: 'angular',
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:4200'
+        baseURL: 'http://localhost:4200',
+        contextOptions: {
+          ignoreHTTPSErrors: true,
+          bypassCSP: true
+        }
       },
       testMatch: /.*angular\.spec\.ts/,
     },
@@ -28,7 +32,11 @@ export default defineConfig({
       name: 'react',
       use: {
         ...devices['Desktop Chrome'],
-        baseURL: 'http://localhost:5173'
+        baseURL: 'http://localhost:5173',
+        contextOptions: {
+          ignoreHTTPSErrors: true,
+          bypassCSP: true
+        }
       },
       testMatch: /.*react\.spec\.ts/,
     }

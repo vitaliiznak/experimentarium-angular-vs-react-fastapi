@@ -1,7 +1,7 @@
 <app-auth-form>
     <h2>Sign Up</h2>
-    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
-      <div *ngIf="signupError" class="error-alert">
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()" data-testid="signup-form">
+      <div *ngIf="signupError" class="error-alert" data-testid="signup-error">
         {{ signupError }}
       </div>
   
@@ -14,6 +14,7 @@
         [form]="signupForm"
         [showError]="shouldShowError('name')"
         errorMessage="Name is required"
+        data-testid="signup-name"
       ></app-form-field>
   
       <app-form-field
@@ -25,6 +26,7 @@
         [form]="signupForm"
         [showError]="shouldShowError('email')"
         [errorMessage]="getEmailErrorMessage()"
+        data-testid="signup-email"
       ></app-form-field>
   
       <app-form-field
@@ -36,9 +38,10 @@
         [form]="signupForm"
         [showError]="shouldShowError('password')"
         [errorMessage]="getPasswordErrorMessage()"
+        data-testid="signup-password"
       ></app-form-field>
   
-      <button type="submit" [class.loading]="isLoading">
+      <button type="submit" [class.loading]="isLoading" data-testid="signup-submit">
         <span *ngIf="!isLoading">Sign Up</span>
         <span *ngIf="isLoading">
           <i class="fas fa-spinner fa-spin"></i> Creating account...

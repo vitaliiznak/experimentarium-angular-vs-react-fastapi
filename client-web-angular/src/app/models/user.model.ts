@@ -3,7 +3,7 @@ export interface User {
     name: string;
     email: string;
     created_at: string;
-    updated_at: string;
+    updated_at: string | null;
 }
 
 export interface LoginRequest {

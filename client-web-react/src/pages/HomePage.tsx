@@ -43,7 +43,7 @@ export default function HomePage() {
           <h1>Welcome back,</h1>
           <h2>{user?.name}</h2>
         </div>
-        <button className="logout-button" onClick={logout}>Logout</button>
+        <button className="logout-button" onClick={logout} data-testid="logout-button">Logout</button>
       </header>
 
       <main className="home-content">

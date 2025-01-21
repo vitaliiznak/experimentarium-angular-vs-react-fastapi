@@ -3,13 +3,22 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { LoginRequest, LoginResponse, SignupRequest, User } from '../models/user.model';
 
+export interface AuthResponse {
+  access_token: string;
+  token_type: string;
+  user: User;
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private readonly API_URL = 'http://localhost:8000/api';
-  private currentUserSubject = new BehaviorSubject<User | null>(null);
+  public readonly API_URL = 'http://localhost:8000/api';
+  public currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser$ = this.currentUserSubject.asObservable();
+  
+  private authTokenSubject = new BehaviorSubject<string | null>(null);
+  authToken$ = this.authTokenSubject.asObservable();
 
   constructor(private http: HttpClient) {
     const savedUser = localStorage.getItem('currentUser');
@@ -22,25 +31,33 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${this.API_URL}/auth/login`, credentials)
       .pipe(
         tap(response => {
-          localStorage.setItem('access_token', response.access_token);
+          localStorage.setItem('auth_token', response.access_token);
           localStorage.setItem('currentUser', JSON.stringify(response.user));
           this.currentUserSubject.next(response.user);
         })
       );
   }
 
-  signup(userData: SignupRequest): Observable<User> {
-    return this.http.post<User>(`${this.API_URL}/auth/signup`, userData);
+  signup(credentials: any): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.API_URL}/auth/signup`, credentials).pipe(
+      tap(response => {
+        localStorage.setItem('auth_token', response.access_token);
+        localStorage.setItem('currentUser', JSON.stringify(response.user));
+        this.currentUserSubject.next(response.user);
+      })
+    );;
   }
 
   logout(): void {
-    localStorage.removeItem('access_token');
+    localStorage.removeItem('auth_token');
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    this.authTokenSubject.next(null);
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem('access_token');
+    const token = localStorage.getItem('auth_token');
+    return !!token;
   }
 
   forgotPassword(email: string): Observable<any> {
@@ -52,5 +69,15 @@ export class AuthService {
       token,
       new_password: newPassword
     });
+  }
+
+  setAuthToken(token: string): void {
+    localStorage.setItem('auth_token', token);
+    this.authTokenSubject.next(token);
+  }
+
+  setCurrentUser(user: User): void {
+    localStorage.setItem('current_user', JSON.stringify(user));
+    this.currentUserSubject.next(user);
   }
 } 

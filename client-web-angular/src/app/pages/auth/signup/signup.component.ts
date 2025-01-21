@@ -70,8 +70,13 @@ export class SignupComponent {
     this.signupError = '';
 
     this.authService.signup(this.signupForm.value).subscribe({
-      next: () => {
-        this.router.navigate(['/auth/login']);
+      next: (response) => {
+       // Store the auth token and user info
+       
+       // Navigate to home page after a short delay to ensure storage is updated
+       setTimeout(() => {
+         this.router.navigate(['/home']);
+       }, 1);
       },
       error: (error) => {
         this.isLoading = false;

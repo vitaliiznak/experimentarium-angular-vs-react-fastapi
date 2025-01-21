@@ -4,13 +4,13 @@
             <span class="welcome-text">Welcome back,</span>
             <span class="user-name">{{ user?.name }}</span>
         </div>
-        <button class="logout-btn" (click)="logout()">
-      <i class="fas fa-sign-out-alt"></i>
-      Logout
-    </button>
+        <button class="logout-btn" data-testid="logout-button" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            Logout
+        </button>
     </nav>
 
-    <main class="main-content">
+    <main class="main-content" data-testid="dashboard">
         <div class="dashboard-card">
             <h2>Green Energy Dashboard</h2>
             <div class="time-display">

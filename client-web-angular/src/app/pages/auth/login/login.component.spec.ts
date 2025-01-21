@@ -7,6 +7,7 @@ import { AuthFormComponent } from '../../../shared/components/auth-form/auth-for
 import { FormFieldComponent } from '../../../shared/components/form-field/form-field.component';
 import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
+import { LoginResponse } from '../../../models/user.model';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -65,15 +66,15 @@ describe('LoginComponent', () => {
   });
 
   it('should call auth service and navigate on successful login', () => {
-    const mockLoginResponse = {
+    const mockLoginResponse: LoginResponse = {
       access_token: 'mock-token',
-      token_type: 'Bearer',
+      token_type: 'bearer',
       user: {
-        id: 1,
+        id: 36,
         name: 'Test User',
         email: 'test@example.com',
-        created_at: '2024-01-01',
-        updated_at: '2024-01-01'
+        created_at: '2025-01-21T11:18:11.249901Z',
+        updated_at: null
       }
     };
 
