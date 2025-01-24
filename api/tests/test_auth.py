@@ -37,9 +37,10 @@ def test_signup_success():
     )
     assert response.status_code == 200
     data = response.json()
-    assert data["email"] == "test@example.com"
-    assert data["name"] == "Test User"
-    assert "password" not in data
+    assert data["user"]["email"] == "test@example.com"
+    assert "access_token" in data
+    assert data["token_type"] == "bearer"
+    assert 'password' not in data["user"]
 
 def test_signup_duplicate_email():
     # Create first user
