@@ -84,6 +84,7 @@ Start specific service
 ```bash
 docker compose up web-react # For React frontend
 docker compose up web-angular # For Angular frontend
+docker compose up db # For React frontend
 docker compose up api # For backend
 ```
 
