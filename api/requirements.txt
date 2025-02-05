@@ -81,3 +81,4 @@ wcwidth==0.2.13
 webencodings==0.5.1
 yarg==0.1.9
 httpx==0.25.0
+asyncpg==0.30.0

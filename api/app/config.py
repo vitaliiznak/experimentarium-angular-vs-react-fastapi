@@ -35,3 +35,9 @@ SQLALCHEMY_DATABASE_URL = os.getenv(
     f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 )
 
+# Asynchronous SQLAlchemy URL – note the asyncpg driver part in the URL:
+SQLALCHEMY_DATABASE_ASYNC_URL: Final[str] = os.getenv(
+    'DATABASE_ASYNC_URL',
+    f"postgresql+asyncpg://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+)
+
