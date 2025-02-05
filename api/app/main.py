@@ -4,7 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app import models
 from app.database import engine
-from app.routers import auth
+from app import auth
+
 
 
 async def init_models() -> None:

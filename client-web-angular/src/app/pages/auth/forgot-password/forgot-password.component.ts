@@ -48,27 +48,20 @@ export class ForgotPasswordComponent {
     return (control?.invalid && (control?.touched || this.submitted)) ?? false;
   }
 
-  onSubmit(): void {
-    this.submitted = true;
-    
-    if (this.forgotPasswordForm.invalid) {
-      this.error = 'Please fix the errors above before submitting';
-      return;
-    }
+  async onSubmit(): Promise<void> {
+    if (this.forgotPasswordForm.invalid) return;
 
     this.isLoading = true;
     this.error = '';
     this.success = '';
 
-    this.authService.forgotPassword(this.forgotPasswordForm.value.email).subscribe({
-      next: () => {
-        this.success = 'Password reset instructions have been sent to your email';
-        this.isLoading = false;
-      },
-      error: (error) => {
-        this.isLoading = false;
-        this.error = error?.error?.message || 'An error occurred. Please try again.';
-      }
-    });
+    try {
+      await this.authService.forgotPassword(this.forgotPasswordForm.value.email);
+      this.success = 'Password reset instructions have been sent to your email';
+    } catch (error: any) {
+      this.error = error.message || 'An error occurred. Please try again.';
+    } finally {
+      this.isLoading = false;
+    }
   }
 } 

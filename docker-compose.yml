@@ -49,7 +49,7 @@ services:
       dockerfile: client-web-react/Dockerfile
     ports:
       - "5173:5173"
-      - "9230:9230"
+      - "9231:9230"
     volumes:
       - ./client-web-react:/app
       - ./packages:/app/packages

@@ -87,33 +87,28 @@ export class ResetPasswordComponent implements OnInit {
       : { mismatch: true };
   }
 
-  onSubmit() {
-    this.submitted = true;
-    
-    if (this.resetForm.valid && this.token) {
-      this.isLoading = true;
-      this.error = '';
-      this.success = '';
+  async onSubmit() {
+    if (this.resetForm.invalid) return;
 
-      const newPassword = this.resetForm.get('password')?.value;
-      
-      this.authService.resetPassword(this.token, newPassword).subscribe({
-        next: () => {
-          this.success = 'Password successfully reset!';
-          setTimeout(() => {
-            this.router.navigate(['/auth/login']);
-          }, 2000);
-        },
-        error: (error) => {
-          this.isLoading = false;
-          this.error = error?.error?.message || 'Failed to reset password. Please try again.';
-          if (error?.error?.detail === 'Invalid or expired token') {
-            setTimeout(() => {
-              this.router.navigate(['/auth/login']);
-            }, 3000);
-          }
-        }
-      });
+    this.submitted = true;
+    try {
+      await this.authService.resetPassword(
+        this.token ?? '', 
+        this.resetForm.value.password
+      );
+      this.success = 'Password successfully reset!';
+      setTimeout(() => {
+        this.router.navigate(['/auth/login']);
+      }, 2000);
+    } catch (error: any) {
+      this.error = error.message || 'Failed to reset password. Please try again.';
+      if (error?.error?.detail === 'Invalid or expired token') {
+        setTimeout(() => {
+          this.router.navigate(['/auth/login']);
+        }, 3000);
+      }
+    } finally {
+      this.submitted = false;
     }
   }
 }

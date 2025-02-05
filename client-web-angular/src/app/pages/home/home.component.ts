@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { User } from '../../models/user.model';
+import { effect } from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -18,13 +19,13 @@ export class HomeComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router
-  ) {}
+  ) {
+    effect(() => {
+      this.user = this.authService.currentUser();
+    });
+  }
 
   ngOnInit() {
-    this.authService.currentUser$.subscribe(
-      user => this.user = user
-    );
-    
     // Update time every second
     setInterval(() => {
       this.currentTime = new Date();

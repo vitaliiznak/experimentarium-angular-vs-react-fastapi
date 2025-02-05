@@ -43,27 +43,20 @@ export class LoginComponent {
     return '';
   }
 
-  onSubmit(): void {
-    this.submitted = true;
+  async onSubmit(): Promise<void> {
+    if (this.loginForm.invalid) return;
     
-    if (this.loginForm.invalid) {
-      this.loginError = 'Please fix the errors above before submitting';
-      return;
-    }
-
     this.isLoading = true;
     this.loginError = '';
     
-    this.authService.login(this.loginForm.value).subscribe({
-      next: () => {
-        this.router.navigate(['/home']);
-      },
-      error: (error) => {
-        this.isLoading = false;
-        this.loginError = error?.error?.message || 'Invalid email or password';
-        console.error('Login failed:', error);
-      }
-    });
+    try {
+      await this.authService.login(this.loginForm.value);
+      this.router.navigate(['/home']);
+    } catch (error: any) {
+      this.isLoading = false;
+      this.loginError = error.message || 'Login failed';
+      console.error('Login failed:', error);
+    }
   }
 
   shouldShowError(controlName: string): boolean {

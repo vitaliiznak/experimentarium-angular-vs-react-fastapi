@@ -58,39 +58,29 @@ export class SignupComponent {
     return (control?.invalid && (control?.touched || this.submitted)) ?? false;
   }
 
-  onSubmit(): void {
-    this.submitted = true;
-    
-    if (this.signupForm.invalid) {
-      this.signupError = 'Please fix the errors above before submitting';
-      return;
-    }
+  async onSubmit(): Promise<void> {
+    if (this.signupForm.invalid) return;
 
     this.isLoading = true;
     this.signupError = '';
 
-    this.authService.signup(this.signupForm.value).subscribe({
-      next: (response) => {
-       // Store the auth token and user info
-       
-       // Navigate to home page after a short delay to ensure storage is updated
-       setTimeout(() => {
-         this.router.navigate(['/home']);
-       }, 1);
-      },
-      error: (error) => {
-        this.isLoading = false;
-        if (error?.error?.detail === 'Email already registered') {
-          this.signupError = 'This email is already registered. Please use a different email or try logging in.';
-          const emailControl = this.signupForm.get('email');
-          emailControl?.setErrors({ 'emailTaken': true });
-          emailControl?.markAsTouched();
-        } else {
-          this.signupError = error?.error?.detail || 'Signup failed. Please try again.';
-        }
-        // Ensure change detection runs
-        this.cdr.detectChanges();
+    try {
+      const response = await this.authService.signup(this.signupForm.value);
+      this.router.navigate(['/']);
+    } catch (error: any) {
+      this.isLoading = false;
+      if (error?.error?.detail === 'Email already registered') {
+        this.signupError = 'This email is already registered. Please use a different email or try logging in.';
+        const emailControl = this.signupForm.get('email');
+        emailControl?.setErrors({ 'emailTaken': true });
+        emailControl?.markAsTouched();
+      } else {
+        this.signupError = error?.error?.detail || 'Signup failed. Please try again.';
       }
-    });
+      // Ensure change detection runs
+      this.cdr.detectChanges();
+    } finally {
+      this.isLoading = false;
+    }
   }
 } 
